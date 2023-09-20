@@ -1,21 +1,27 @@
 
 #GraphQL Todo App
+doc=>https://www.apollographql.com/docs/apollo-server/
 Why GraphQL?
 
-GraphQL is a powerful and flexible query language that can be used to solve a wide range of problems, including the following:
+GraphQL solves the problem of over-fetching and under-fetching data. With REST APIs, you often have to request more data than you need, or you have to make multiple requests to get all the data you need. This can be inefficient and waste bandwidth.
 
-Over-fetching and under-fetching: GraphQL allows clients to request only the data they need, which can reduce bandwidth usage and improve performance.
-Complex queries: GraphQL can be used to make complex queries that would be difficult or impossible to make with REST.
-API evolution: GraphQL APIs can be evolved over time without breaking existing queries.
-Data typing: GraphQL APIs are strongly typed, which can help to prevent errors.
-Specific problems that GraphQL can solve:
+GraphQL allows you to request exactly the data you need, in a single request. This can improve performance and reduce bandwidth usage.
 
-Querying nested data: GraphQL can be used to query nested data efficiently, without having to make multiple requests.
-Real-time data: GraphQL can be used to build real-time data applications, such as chat apps and social media apps.
-API documentation: GraphQL provides a single source of truth for API documentation, which can make it easier for developers to use your API.
-In the context of a Todo App, GraphQL can be used to solve the following problems:
+# REST API
+GET /todos
 
-Reduce bandwidth usage and improve performance: GraphQL allows clients to request only the data they need, such as the list of todos, the details of a specific todo, or the status of a todo. This can reduce bandwidth usage and improve performance, especially for mobile devices.
-Make complex queries: GraphQL can be used to make complex queries, such as filtering todos by status, priority, or due date. This can make it easier for users to find the information they need.
-Evolve the API over time: GraphQL APIs can be evolved over time without breaking existing queries. This means that you can add new features or change the structure of the data without having to worry about breaking existing users.
-Overall, GraphQL is a powerful and flexible query language that can be used to build a robust and scalable Todo App.
+# GraphQL API
+query {
+  todos {
+    id
+    title
+    completed
+  }
+}
+
+The REST API will return all of the todos, even if you only need the title and completed status. The GraphQL API will only return the data that you requested.
+
+GraphQL is also more flexible than REST APIs. It allows you to make complex queries that would be difficult or impossible to make with REST. For example, you could filter todos by status, priority, or due date.
+
+
+to use graph database i am using Apollo server to connect graphQL server with nodejs 
