@@ -12,18 +12,31 @@ async function startServer() {
     // schema to define the structure of data that clients can query.
     const server = new ApolloServer({
         typeDefs: `
+        type User{
+            id:ID!
+            name:String!
+            username:String!
+            email:String!
+            phone:String
+            website:String
+
+        }
         type Todo{
             id:ID!
             title:String!
             completed:Boolean
         }
         type Query{
-            getTodos:[Todo]
+            getAllTodos:[Todo]
+            getAllUsers:[User]
+            getUserById(id:ID!):User
         }`,
         resolvers: {
             Query: {
-                getTodos: async () => (await axios.get("")).data,
-            }
+                getAllTodos: async () => (await axios.get("https://jsonplaceholder.typicode.com/todos")).data,
+                getAllUsers: async () => (await axios.get("https://jsonplaceholder.typicode.com/users")).data,
+                getUserById: async (parent, { id }) => (await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)).data
+            },
         }
     }
 
