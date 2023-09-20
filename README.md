@@ -1,7 +1,5 @@
 
-Sure, here is a nice-looking README.md file for the content you provided:
-
-GraphQL Todo App
+#GraphQL Todo App
 Why GraphQL?
 
 GraphQL is a powerful and flexible query language that can be used to solve a wide range of problems, including the following:
