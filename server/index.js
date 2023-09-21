@@ -6,6 +6,8 @@ const cors = require('cors')
 const { startStandaloneServer } = require('@apollo/server/standalone');
 const axios = require("axios")
 
+const { USER, TODO } = require('./user')
+
 async function startServer() {
     const app = express()
     // Every GraphQL server (including Apollo Server) uses a 
@@ -25,6 +27,7 @@ async function startServer() {
             id:ID!
             title:String!
             completed:Boolean
+            user:User
         }
         type Query{
             getAllTodos:[Todo]
@@ -32,10 +35,18 @@ async function startServer() {
             getUserById(id:ID!):User
         }`,
         resolvers: {
+            Todo: {
+                // user: async (a) => (await axios.get(`https://jsonplaceholder.typicode.com/users/${a.id}`)).data
+                user: (a) => USER.find((item) => item.id == a.id)
+            },
             Query: {
-                getAllTodos: async () => (await axios.get("https://jsonplaceholder.typicode.com/todos")).data,
-                getAllUsers: async () => (await axios.get("https://jsonplaceholder.typicode.com/users")).data,
-                getUserById: async (parent, { id }) => (await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)).data
+                // getAllTodos: async () => (await axios.get("https://jsonplaceholder.typicode.com/todos")).data,
+                getAllTodos: () => TODO,
+                // getAllUsers: async () => (await axios.get("https://jsonplaceholder.typicode.com/users")).data,
+                getAllUsers: () => USER,
+
+                // getUserById: async (parent, { id }) => (await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)).data
+                getUserById: (parent, { id }) => USER.find((item) => item.id == id)
             },
         }
     }
